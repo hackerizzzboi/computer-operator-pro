@@ -2,39 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard</title>
+  <title>Dashboard | Computer Operator Pro</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<h2>Dashboard</h2>
-<p id="userEmail">Checking login...</p>
+  <h2>Computer Operator Pro – Dashboard</h2>
+  <p id="userEmail">Checking login...</p>
 
-<button onclick="logout()">Logout</button>
+  <hr>
 
-<script type="module">
-  import { auth } from "./js/firebase.js";
-  import {
-    onAuthStateChanged,
-    signOut
-  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  <!-- Navigation Buttons -->
+  <div class="nav">
+    <button onclick="showSection('mcq')">MCQ Practice</button>
+    <button onclick="showSection('syllabus')">Syllabus</button>
+    <button onclick="showSection('videos')">YouTube Videos</button>
+    <button onclick="showSection('premium')">Premium 🔒</button>
+    <button onclick="logout()">Logout</button>
+  </div>
 
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      // ❌ Not logged in → go to login
-      window.location.href = "login.html";
-    } else {
-      // ✅ Logged in
-      document.getElementById("userEmail").innerText =
-        "Logged in as: " + user.email;
-    }
-  });
+  <hr>
 
-  window.logout = function () {
-    signOut(auth).then(() => {
-      window.location.href = "login.html";
-    });
-  };
-</script>
+  <!-- Sections -->
+  <div id="mcq" class="section">
+    <h3>MCQ Practice</h3>
+    <p>Practice computer operator MCQs here.</p>
+    <p>(Coming next)</p>
+  </div>
+
+  <div id="syllabus" class="section hidden">
+    <h3>Syllabus</h3>
+    <p>View full Computer Operator (5th Level) syllabus.</p>
+    <p>(PDF will be added)</p>
+  </div>
+
+  <div id="videos" class="section hidden">
+    <h3>YouTube Videos</h3>
+    <p>Free video tutorials for exam preparation.</p>
+    <p>(Videos will be embedded)</p>
+  </div>
+
+  <div id="premium" class="section hidden">
+    <h3>Premium Content 🔒</h3>
+    <p>Paid notes, paid videos & mock tests.</p>
+    <p>(Payment system later)</p>
+  </div>
+
+  <script type="module" src="js/dashboard.js"></script>
 
 </body>
 </html>
