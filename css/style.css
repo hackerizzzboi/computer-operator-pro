@@ -1,192 +1,125 @@
-/* =========================
-   THEME VARIABLES
-========================= */
 :root {
+  --bg: #0f172a;
+  --card: #111827;
+  --text: #e5e7eb;
+  --accent: #38bdf8;
+  --border: #1f2937;
+}
+
+[data-theme="light"] {
   --bg: #f8fafc;
-  --text: #0f172a;
   --card: #ffffff;
-  --primary: #2563eb;
+  --text: #0f172a;
+  --accent: #2563eb;
   --border: #e5e7eb;
 }
 
-[data-theme="dark"] {
-  --bg: #0f172a;
-  --text: #e5e7eb;
-  --card: #1e293b;
-  --primary: #38bdf8;
-  --border: #334155;
-}
-
-/* =========================
-   GLOBAL RESET
-========================= */
 * {
   box-sizing: border-box;
-  transition: background 0.3s, color 0.3s;
 }
 
 body {
   margin: 0;
-  font-family: "Inter", Arial, sans-serif;
-  background: var(--bg);
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: radial-gradient(circle at top, #1e293b, var(--bg));
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--text);
 }
 
-/* =========================
-   HEADER & NAVBAR
-========================= */
-header {
-  padding: 16px;
+/* AUTH CONTAINER */
+.auth-container {
+  width: 100%;
+  max-width: 420px;
   background: var(--card);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+  animation: pop 0.6s ease;
 }
 
-.nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.nav button {
-  background: var(--primary);
-  border: none;
-  color: white;
-  padding: 8px 14px;
-  margin: 4px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.nav button:hover {
-  opacity: 0.9;
-}
-
-.toggle {
-  cursor: pointer;
-  font-size: 18px;
-}
-
-/* =========================
-   MAIN CONTENT
-========================= */
-main {
-  padding: 20px;
-  min-height: 60vh;
-  animation: fadeIn 0.4s ease;
-}
-
-/* =========================
-   GRID & CARDS
-========================= */
-.grid,
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-  margin-top: 20px;
-}
-
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  padding: 16px;
-  border-radius: 12px;
-}
-
-/* =========================
-   PREMIUM CARDS
-========================= */
-.premium-card {
-  background: var(--card);
-  border: 2px dashed var(--border);
-  padding: 18px;
-  border-radius: 12px;
+/* TITLE */
+.auth-container h1 {
+  margin: 0 0 10px;
   text-align: center;
-  position: relative;
+  font-size: 26px;
 }
 
-.premium-card.locked::after {
-  content: "🔒 LOCKED";
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #ef4444;
-  color: white;
-  font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 6px;
+.auth-container p {
+  text-align: center;
+  opacity: 0.8;
+  margin-bottom: 24px;
 }
 
-/* =========================
-   BUTTONS (GLOBAL)
-========================= */
+/* INPUTS */
+input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-size: 15px;
+}
+
+input::placeholder {
+  color: #94a3b8;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* BUTTON */
 button {
-  background: var(--primary);
-  color: white;
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
   border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent), #60a5fa);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
+  margin-top: 6px;
 }
 
 button:hover {
   opacity: 0.9;
 }
 
-/* =========================
-   FORMS (LOGIN / REGISTER)
-========================= */
-form {
-  max-width: 400px;
-  margin: auto;
+/* LINKS */
+.auth-link {
+  text-align: center;
+  margin-top: 18px;
 }
 
-input {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 8px;
-  border: 1px solid var(--border);
+.auth-link a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
 }
 
-/* Login / Register Box */
-.auth-box {
-  background: var(--card);
-  padding: 30px;
-  border-radius: 14px;
-  max-width: 400px;
-  margin: 80px auto;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  animation: slideUp 0.6s ease;
-}
-
-/* =========================
-   ANIMATIONS
-========================= */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* =========================
-   MOBILE RESPONSIVE
-========================= */
-@media (max-width: 600px) {
-  header {
-    flex-direction: column;
-    gap: 10px;
+/* ANIMATION */
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
   }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
-  .nav button {
-    flex: 1 1 45%;
+/* MOBILE */
+@media (max-width: 480px) {
+  .auth-container {
+    margin: 20px;
+    padding: 24px;
   }
 }
