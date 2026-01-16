@@ -8,19 +8,20 @@
 </head>
 <body>
 
-<div class="auth-container">
-  <h1>Welcome Back 👋</h1>
-  <p>Login to continue your preparation</p>
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <h2>Welcome Back 👋</h2>
+    <p>Login to continue your preparation</p>
 
-  <form onsubmit="login(event)">
-    <input type="email" placeholder="Email address" required>
-    <input type="password" placeholder="Password" required>
-    <button type="submit">Login</button>
-  </form>
+    <form onsubmit="login(event)">
+      <input type="email" placeholder="Email address" required>
+      <input type="password" placeholder="Password" required>
+      <button class="btn" type="submit">Login</button>
+    </form>
 
-  <div class="auth-link">
-    New here?
-    <a href="register.html">Register now</a>
+    <div class="auth-link">
+      New here? <a href="register.html">Register now</a>
+    </div>
   </div>
 </div>
 
