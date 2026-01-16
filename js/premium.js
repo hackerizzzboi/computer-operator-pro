@@ -49,7 +49,6 @@ function premiumPage() {
       <li>🔐 Cyber Security</li>
       <li>🛠 Hardware & Troubleshooting</li>
       <li>🎨 Web Designing</li>
-      <li>🏛 Public Management</li>
       <li>⚖ Related Legislations</li>
     </ul>
 
