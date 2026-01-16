@@ -29,3 +29,24 @@ function premiumPage() {
   // 🔓 UNLOCKED (later)
   return premiumNotesGrid();
 }
+
+function premiumNotesGrid() {
+  return `
+    <h2>📚 Premium Notes – Computer Operator (5th Level)</h2>
+
+    <div class="grid">
+      <a href="assets/premium-notes/computer-fundamental/">🧠 Computer Fundamental</a>
+      <a href="assets/premium-notes/operating-system/">🖥️ Operating System</a>
+      <a href="assets/premium-notes/word-processing/">📝 Word Processing</a>
+      <a href="assets/premium-notes/spreadsheet/">📊 Spreadsheet</a>
+      <a href="assets/premium-notes/presentation/">📽️ Presentation</a>
+      <a href="assets/premium-notes/computer-network/">🌐 Computer Network</a>
+      <a href="assets/premium-notes/cyber-security/">🛡️ Cyber Security</a>
+      <a href="assets/premium-notes/dbms/">🗄️ DBMS</a>
+      <a href="assets/premium-notes/hardware-troubleshooting/">🧰 Hardware</a>
+      <a href="assets/premium-notes/web-designing/">🎨 Web Designing</a>
+      <a href="assets/premium-notes/public-management/">🏛️ Public Management</a>
+      <a href="assets/premium-notes/related-legislations/">⚖️ Legislations</a>
+    </div>
+  `;
+}
