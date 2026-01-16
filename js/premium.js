@@ -16,7 +16,7 @@ function premiumPage() {
 
     <h5>📱 Pay via eSewa QR</h5>
     <img 
-      src="assets/payments/esewa-qr.png" 
+      src="assets/payments/esewa-qr.jpeg" 
       alt="eSewa QR"
       style="width:220px;border:1px solid #ccc;padding:10px;"
     />
