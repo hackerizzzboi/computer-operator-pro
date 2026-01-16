@@ -1,228 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Dashboard | Computer Operator Pro</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
 <body>
 
+<header>
   <h2>Computer Operator Pro</h2>
-  <p id="userEmail">Checking login...</p>
+  <p id="userEmail"></p>
+</header>
 
-  <hr>
+<nav class="nav">
+  <button onclick="loadPage('home')">Home</button>
+  <button onclick="loadPage('mcq')">Practice</button>
+  <button onclick="loadPage('syllabus')">Syllabus</button>
+  <button onclick="loadPage('videos')">Videos</button>
+  <button onclick="loadPage('premium')">Premium 🔒</button>
+  <button onclick="loadPage('progress')">My Progress</button>
+  <button onclick="logout()">Logout</button>
+</nav>
 
-  <!-- Navigation -->
-  <div class="nav">
-    <button onclick="showSection('home')">Home</button>
-    <button onclick="showSection('practice')">Practice</button>
-    <button onclick="showSection('syllabus')">Syllabus</button>
-    <button onclick="showSection('videos')">Videos</button>
-    <button onclick="showSection('premium')">Premium 🔒</button>
-    <button onclick="showSection('progress')">My Progress</button>
-    <button onclick="logout()">Logout</button>
-  </div>
+<main id="app">
+  <!-- Dynamic content loads here -->
+</main>
 
-  <hr>
-
-  <!-- HOME -->
-  <div id="home" class="section">
-    <h3>Welcome 👋</h3>
-    <p>Prepare for <b>Computer Operator (5th Level)</b> exam with practice, syllabus, videos & mock tests.</p>
-
-    <ul>
-      <li>✔ Free MCQ practice</li>
-      <li>✔ Full syllabus PDF</li>
-      <li>✔ Video tutorials</li>
-      <li>✔ Premium mock tests</li>
-    </ul>
-
-    <p><b>Start from Practice tab 👈</b></p>
-  </div>
-
-  <!-- MCQ Practice -->
-  <div id="practice" class="section hidden">
-  <h3>MCQ Practice</h3>
-
-  <div id="mcqBox">
-    <p id="question">Loading question...</p>
-
-    <div>
-      <input type="radio" name="option" value="0"> <span id="opt0"></span><br>
-      <input type="radio" name="option" value="1"> <span id="opt1"></span><br>
-      <input type="radio" name="option" value="2"> <span id="opt2"></span><br>
-      <input type="radio" name="option" value="3"> <span id="opt3"></span><br>
-    </div>
-
-    <br>
-    <button onclick="submitAnswer()">Submit</button>
-
-    <p id="result"></p>
-    <p><b>Score:</b> <span id="score">0</span></p>
-  </div>
-</div>
-
-
-  <!-- SYLLABUS -->
-  <div id="syllabus" class="section hidden">
-  <h3>Syllabus (Exam-wise)</h3>
-  <p>Select the syllabus you want to view or download:</p>
-
-  <ul>
-    <li>
-      📄 <b>Computer Operator (5th Level)</b><br>
-      <a href="assets/syllabus/computer-operator.pdf" target="_blank">
-        View / Download PDF
-      </a>
-    </li>
-
-    <li>
-      📄 <b>Computer Technician</b><br>
-      <a href="assets/syllabus/computer-technician.pdf" target="_blank">
-        View / Download PDF
-      </a>
-    </li>
-
-    <li>
-      📄 <b>Sansad Syllabus</b><br>
-      <a href="assets/syllabus/sansad.pdf" target="_blank">
-        View / Download PDF
-      </a>
-    </li>
-
-    <li>
-      📄 <b>मानव अधिकार</b><br>
-      <a href="assets/syllabus/manav-adhikar.pdf" target="_blank">
-        View / Download PDF
-      </a>
-    </li>
-
-    <li>
-      📄 <b>नेपाल आयल निगम (5th Level)</b><br>
-      <a href="assets/syllabus/noc.pdf" target="_blank">
-        View / Download PDF
-      </a>
-    </li>
-  </ul>
-</div>
-
-
-  <!-- VIDEOS -->
-  <div id="videos" class="section hidden">
-  <h3>YouTube Video Tutorials</h3>
-
-  <div style="margin-bottom:15px;">
-    <button onclick="showVideoGroup('deepak')">Deepak Yadav (GK)</button>
-    <button onclick="showVideoGroup('sudip')">Sudip Nepali (GK)</button>
-  </div>
-
-  <!-- ================= Deepak Yadav ================= -->
-  <div id="deepak" class="video-group">
-    <h4>📘 Deepak Yadav – GK</h4>
-    <p>GK video series by Deepak Yadav.</p>
-    <p><i>Videos will be added soon.</i></p>
-  </div>
-
-  <!-- ================= Sudip Nepali ================= -->
-  <div id="sudip" class="video-group hidden">
-    <h4>📕 Sudip Nepali – GK & Public Management</h4>
-
-      <h5>📘 GK Series</h5>
-
-  <p><b>Day 1</b></p>
-  <iframe src="https://www.youtube.com/embed/cxgy_Jcw3w8" allowfullscreen></iframe>
-
-  <p><b>Day 2</b></p>
-  <iframe src="https://www.youtube.com/embed/QobhKQi89bU" allowfullscreen></iframe>
-
-  <p><b>Day 3</b></p>
-  <iframe src="https://www.youtube.com/embed/jqQtXmf44CQ" allowfullscreen></iframe>
-
-  <p><b>Day 4</b></p>
-  <iframe src="https://www.youtube.com/embed/JFWt_iVTnpw" allowfullscreen></iframe>
-
-  <p><b>Day 5</b></p>
-  <iframe src="https://www.youtube.com/embed/IfC9Keo4fDo" allowfullscreen></iframe>
-
-  <p><b>Day 6</b></p>
-  <iframe src="https://www.youtube.com/embed/2EGV3xEZGSk" allowfullscreen></iframe>
-
-  <p><b>Day 7</b></p>
-  <iframe src="https://www.youtube.com/embed/2JjpdLUaBEs" allowfullscreen></iframe>
-
-  <p><b>Day 8</b></p>
-  <iframe src="https://www.youtube.com/embed/T2ewQFGg9hU" allowfullscreen></iframe>
-
-  <p><b>Day 9</b></p>
-  <iframe src="https://www.youtube.com/embed/aI3OYRjpnN0" allowfullscreen></iframe>
-
-  <p><b>Day 10</b></p>
-  <iframe src="https://www.youtube.com/embed/8o_03Oy07zI" allowfullscreen></iframe>
-
-  <p><b>Day 11</b></p>
-  <iframe src="https://www.youtube.com/embed/5cgq_RTqCZ4" allowfullscreen></iframe>
-
-  <p><b>Day 12</b></p>
-  <iframe src="https://www.youtube.com/embed/6y_tgDm6ulg" allowfullscreen></iframe>
-
-  <p><b>Day 13</b></p>
-  <iframe src="https://www.youtube.com/embed/7NfO7p8DKR8" allowfullscreen></iframe>
-
-  <p><b>Day 14</b></p>
-  <iframe src="https://www.youtube.com/embed/pFhXzJOKZi8" allowfullscreen></iframe>
-
-  <p><b>Day 15</b></p>
-  <iframe src="https://www.youtube.com/embed/uhN6Rl6b6js" allowfullscreen></iframe>
-
-  <hr>
-
-  <h5>📙 Public Management Series</h5>
-
-  <p><b>Day 1</b></p>
-  <iframe src="https://www.youtube.com/embed/Htz9GZdYvg0" allowfullscreen></iframe>
-
-  <p><b>Day 2</b></p>
-  <iframe src="https://www.youtube.com/embed/y59joEoiFSY" allowfullscreen></iframe>
-
-  <p><b>Day 3</b></p>
-  <iframe src="https://www.youtube.com/embed/fvvxxlBnDH0" allowfullscreen></iframe>
-
-  <p><b>Day 4</b></p>
-  <iframe src="https://www.youtube.com/embed/Xppa2cNtc0M" allowfullscreen></iframe>
-
-  <p><b>Day 5</b></p>
-  <iframe src="https://www.youtube.com/embed/pz9ofsb2qUU" allowfullscreen></iframe>
-
-  <p><b>Day 6</b></p>
-  <iframe src="https://www.youtube.com/embed/bonbURLkDKk" allowfullscreen></iframe>
-
-  <p><b>Day 7</b></p>
-  <iframe src="https://www.youtube.com/embed/34wJlYIKFfc" allowfullscreen></iframe>
-
-  <p><b>Day 8</b></p>
-  <iframe src="https://www.youtube.com/embed/z8IlByJMImA" allowfullscreen></iframe>
-
-  <p><b>Day 9</b></p>
-  <iframe src="https://www.youtube.com/embed/JylqgMVmQSk" allowfullscreen></iframe>
-  </div>
-</div>
-
-  <!-- PREMIUM -->
-  <div id="premium" class="section hidden">
-    <h3>Premium Content 🔒</h3>
-    <p>Paid notes, paid videos & full mock tests.</p>
-    <p>(Payment system later)</p>
-  </div>
-
-  <!-- PROGRESS -->
-  <div id="progress" class="section hidden">
-    <h3>My Progress</h3>
-    <p>Your test history and scores will appear here.</p>
-    <p>(Progress tracking coming later)</p>
-  </div>
-
-  <script src="js/mcq.js"></script>
-  <script type="module" src="js/dashboard.js"></script>
+<script src="js/app.js"></script>
+<script src="js/home.js"></script>
+<script src="js/videos.js"></script>
+<script src="js/syllabus.js"></script>
+<script src="js/mcq.js"></script>
+<script src="js/premium.js"></script>
+<script src="js/progress.js"></script>
 
 </body>
-</html>
