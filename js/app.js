@@ -1,24 +1,51 @@
+// app.js – Core SPA controller 🚀
+
+// Load a page into <main id="app">
 function loadPage(page) {
   const app = document.getElementById("app");
 
-  // build function name like: homePage, mcqPage, premiumPage
+  if (!app) {
+    console.error("❌ #app container not found");
+    return;
+  }
+
   const pageFunction = window[page + "Page"];
 
-  if (typeof pageFunction === "function") {
-    app.innerHTML = pageFunction();
-  } else {
-    app.innerHTML = `
-      <h2>⚠️ Page Not Found</h2>
-      <p>The page "<b>${page}</b>" is not ready yet.</p>
-    `;
-  }
+  // Loading state (better UX)
+  app.innerHTML = `
+    <p style="opacity:0.6;">⏳ Loading ${page}...</p>
+  `;
+
+  // Small delay for smoother feel
+  setTimeout(() => {
+    if (typeof pageFunction === "function") {
+      app.innerHTML = pageFunction();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      app.innerHTML = `
+        <h2>⚠️ Page Not Found</h2>
+        <p>The page "<b>${page}</b>" is not available yet.</p>
+      `;
+    }
+  }, 150);
 }
 
-// ✅ default page when dashboard loads
-loadPage("home");
+// ✅ Auto-load HOME when dashboard opens
+document.addEventListener("DOMContentLoaded", () => {
+  loadPage("home");
+});
 
-// ✅ logout (already wired with Firebase auth)
+// ✅ Logout handler (clean UX)
 function logout() {
-  alert("Logout logic already works.");
-  // firebase.auth().signOut();  // already handled in auth.js
+  const confirmLogout = confirm("Are you sure you want to logout?");
+
+  if (!confirmLogout) return;
+
+  // Optional: Firebase signout already handled elsewhere
+  // firebase.auth().signOut();
+
+  alert("👋 Logged out successfully");
+
+  // Redirect to login page
+  window.location.href = "login.html";
 }
