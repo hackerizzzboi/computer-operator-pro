@@ -7,45 +7,72 @@
 </head>
 <body>
 
-  <h2>Computer Operator Pro – Dashboard</h2>
+  <h2>Computer Operator Pro</h2>
   <p id="userEmail">Checking login...</p>
 
   <hr>
 
-  <!-- Navigation Buttons -->
+  <!-- Navigation -->
   <div class="nav">
-    <button onclick="showSection('mcq')">MCQ Practice</button>
+    <button onclick="showSection('home')">Home</button>
+    <button onclick="showSection('practice')">Practice</button>
     <button onclick="showSection('syllabus')">Syllabus</button>
-    <button onclick="showSection('videos')">YouTube Videos</button>
+    <button onclick="showSection('videos')">Videos</button>
     <button onclick="showSection('premium')">Premium 🔒</button>
+    <button onclick="showSection('progress')">My Progress</button>
     <button onclick="logout()">Logout</button>
   </div>
 
   <hr>
 
-  <!-- Sections -->
-  <div id="mcq" class="section">
-    <h3>MCQ Practice</h3>
-    <p>Practice computer operator MCQs here.</p>
-    <p>(Coming next)</p>
+  <!-- HOME -->
+  <div id="home" class="section">
+    <h3>Welcome 👋</h3>
+    <p>Prepare for <b>Computer Operator (5th Level)</b> exam with practice, syllabus, videos & mock tests.</p>
+
+    <ul>
+      <li>✔ Free MCQ practice</li>
+      <li>✔ Full syllabus PDF</li>
+      <li>✔ Video tutorials</li>
+      <li>✔ Premium mock tests</li>
+    </ul>
+
+    <p><b>Start from Practice tab 👈</b></p>
   </div>
 
+  <!-- PRACTICE -->
+  <div id="practice" class="section hidden">
+    <h3>Practice</h3>
+    <p>Practice MCQs for Computer Operator exam.</p>
+    <p>(MCQ system coming next)</p>
+  </div>
+
+  <!-- SYLLABUS -->
   <div id="syllabus" class="section hidden">
     <h3>Syllabus</h3>
     <p>View full Computer Operator (5th Level) syllabus.</p>
     <p>(PDF will be added)</p>
   </div>
 
+  <!-- VIDEOS -->
   <div id="videos" class="section hidden">
-    <h3>YouTube Videos</h3>
-    <p>Free video tutorials for exam preparation.</p>
+    <h3>Video Tutorials</h3>
+    <p>Free YouTube video tutorials for exam preparation.</p>
     <p>(Videos will be embedded)</p>
   </div>
 
+  <!-- PREMIUM -->
   <div id="premium" class="section hidden">
     <h3>Premium Content 🔒</h3>
-    <p>Paid notes, paid videos & mock tests.</p>
+    <p>Paid notes, paid videos & full mock tests.</p>
     <p>(Payment system later)</p>
+  </div>
+
+  <!-- PROGRESS -->
+  <div id="progress" class="section hidden">
+    <h3>My Progress</h3>
+    <p>Your test history and scores will appear here.</p>
+    <p>(Progress tracking coming later)</p>
   </div>
 
   <script type="module" src="js/dashboard.js"></script>
