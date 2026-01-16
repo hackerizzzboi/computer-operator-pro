@@ -15,10 +15,11 @@ onAuthStateChanged(auth, (user) => {
 });
 
 // Section switching
-window.showSection = function (sectionId) {
-  const sections = document.querySelectorAll(".section");
-  sections.forEach(sec => sec.classList.add("hidden"));
-  document.getElementById(sectionId).classList.remove("hidden");
+window.showSection = function (id) {
+  document.querySelectorAll(".section").forEach(sec => {
+    sec.classList.add("hidden");
+  });
+  document.getElementById(id).classList.remove("hidden");
 };
 
 // Logout
