@@ -1,32 +1,26 @@
 <body>
+  <header>
+    <h3>Computer Operator (5th Level)</h3>
 
-<header>
-  <h2>Computer Operator Pro</h2>
-  <p id="userEmail"></p>
-</header>
+    <div class="nav">
+      <button onclick="loadPage('home')">Home</button>
+      <button onclick="loadPage('mcq')">Practice</button>
+      <button onclick="loadPage('syllabus')">Syllabus</button>
+      <button onclick="loadPage('videos')">Videos</button>
+      <button onclick="loadPage('premium')">Premium 🔒</button>
+      <button onclick="loadPage('progress')">My Progress</button>
+      <button onclick="logout()">Logout</button>
+      <span class="toggle" onclick="toggleTheme()">🌙</span>
+    </div>
+  </header>
 
-<nav class="nav">
-  <button onclick="loadPage('home')">Home</button>
-  <button onclick="loadPage('mcq')">Practice</button>
-  <button onclick="loadPage('syllabus')">Syllabus</button>
-  <button onclick="loadPage('videos')">Videos</button>
-  <button onclick="loadPage('premium')">Premium 🔒</button>
-  <button onclick="loadPage('progress')">My Progress</button>
-  <button onclick="logout()">Logout</button>
-</nav>
+  <main id="app"></main>
 
-<main id="app">
-  <!-- Dynamic content loads here -->
-</main>
-
-<script src="js/app.js"></script>
-<script src="js/home.js"></script>
-<script src="js/videos.js"></script>
-<script src="js/syllabus.js"></script>
-<script src="js/mcq.js"></script>
-<script src="js/premium.js"></script>
-<script src="js/progress.js"></script>
-<script src="js/payment.js"></script>
-
-
+  <script src="js/app.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/mcq.js"></script>
+  <script src="js/syllabus.js"></script>
+  <script src="js/videos.js"></script>
+  <script src="js/premium.js"></script>
+  <script src="js/progress.js"></script>
 </body>
