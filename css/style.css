@@ -1,3 +1,6 @@
+/* =========================
+   THEME VARIABLES
+========================= */
 :root {
   --bg: #f8fafc;
   --text: #0f172a;
@@ -14,6 +17,9 @@
   --border: #334155;
 }
 
+/* =========================
+   GLOBAL RESET
+========================= */
 * {
   box-sizing: border-box;
   transition: background 0.3s, color 0.3s;
@@ -26,6 +32,9 @@ body {
   color: var(--text);
 }
 
+/* =========================
+   HEADER & NAVBAR
+========================= */
 header {
   padding: 16px;
   background: var(--card);
@@ -33,6 +42,13 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .nav button {
@@ -49,9 +65,29 @@ header {
   opacity: 0.9;
 }
 
+.toggle {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
 main {
   padding: 20px;
+  min-height: 60vh;
   animation: fadeIn 0.4s ease;
+}
+
+/* =========================
+   GRID & CARDS
+========================= */
+.grid,
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
 }
 
 .card {
@@ -59,15 +95,51 @@ main {
   border: 1px solid var(--border);
   padding: 16px;
   border-radius: 12px;
-  margin-bottom: 16px;
 }
 
-.toggle {
+/* =========================
+   PREMIUM CARDS
+========================= */
+.premium-card {
+  background: var(--card);
+  border: 2px dashed var(--border);
+  padding: 18px;
+  border-radius: 12px;
+  text-align: center;
+  position: relative;
+}
+
+.premium-card.locked::after {
+  content: "🔒 LOCKED";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ef4444;
+  color: white;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+/* =========================
+   BUTTONS (GLOBAL)
+========================= */
+button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 18px;
 }
 
-/* Forms */
+button:hover {
+  opacity: 0.9;
+}
+
+/* =========================
+   FORMS (LOGIN / REGISTER)
+========================= */
 form {
   max-width: 400px;
   margin: auto;
@@ -81,16 +153,40 @@ input {
   border: 1px solid var(--border);
 }
 
-/* Animations */
+/* Login / Register Box */
+.auth-box {
+  background: var(--card);
+  padding: 30px;
+  border-radius: 14px;
+  max-width: 400px;
+  margin: 80px auto;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  animation: slideUp 0.6s ease;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Mobile */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
 @media (max-width: 600px) {
   header {
     flex-direction: column;
     gap: 10px;
+  }
+
+  .nav button {
+    flex: 1 1 45%;
   }
 }
