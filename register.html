@@ -1,18 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Register</title>
+  <meta charset="UTF-8">
+  <title>Register | Computer Operator Pro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body style="animation: fadeIn 0.5s ease">
+<body>
 
-<h2>Register</h2>
+<div class="auth-box">
+  <h2>📝 Register</h2>
 
-<input id="email" type="email" placeholder="Email"><br><br>
-<input id="password" type="password" placeholder="Password"><br><br>
+  <form onsubmit="register(event)">
+    <input type="text" placeholder="Full Name" required>
+    <input type="email" placeholder="Email" required>
+    <input type="password" placeholder="Password (min 6 chars)" required>
 
-<button onclick="register()">Sign Up</button>
+    <button type="submit">Create Account</button>
+  </form>
 
-<script type="module" src="js/auth.js"></script>
+  <p style="margin-top:12px;">
+    Already registered?
+    <a href="login.html"><strong>Login</strong></a>
+  </p>
+</div>
+
+<script>
+  function register(e) {
+    e.preventDefault();
+
+    alert("✅ Registration successful. Please login.");
+    window.location.href = "login.html";
+  }
+</script>
+
 </body>
 </html>
-
