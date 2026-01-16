@@ -6,7 +6,7 @@ function premiumPage() {
     </p>
 
     <h3>🔐 Premium Content</h3>
-    <p>Unlock full syllabus notes & premium videos.</p>
+    <p>Unlock full syllabus notes.</p>
 
     <hr>
 
