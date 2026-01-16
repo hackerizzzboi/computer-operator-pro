@@ -27,3 +27,28 @@ footer {
   padding: 15px;
   background: #eee;
 }
+
+/* Dashboard navigation */
+.nav button {
+  margin: 6px;
+  padding: 10px 14px;
+  background: #1e293b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.nav button:hover {
+  background: #334155;
+}
+
+/* Dashboard sections */
+.section {
+  margin-top: 25px;
+}
+
+.hidden {
+  display: none;
+}
+
