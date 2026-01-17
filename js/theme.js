@@ -1,14 +1,10 @@
 function toggleTheme() {
-  const body = document.body;
-  const current = body.getAttribute("data-theme");
-
-  const next = current === "dark" ? "light" : "dark";
-  body.setAttribute("data-theme", next);
-  localStorage.setItem("theme", next);
+  document.body.classList.toggle("dark");
+  localStorage.setItem("mode", document.body.classList.contains("dark"));
 }
 
-// Load saved theme
-document.addEventListener("DOMContentLoaded", () => {
-  const saved = localStorage.getItem("theme") || "light";
-  document.body.setAttribute("data-theme", saved);
-});
+window.onload = () => {
+  if (localStorage.getItem("mode") === "true") {
+    document.body.classList.add("dark");
+  }
+}
