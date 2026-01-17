@@ -346,3 +346,56 @@ input:focus {
   text-decoration: none;
   font-weight: bold;
 }
+
+header {
+  padding: 16px;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+/* THIS WAS MISSING BRO */
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.nav button {
+  background: var(--primary);
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  margin: 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.nav button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .nav {
+    justify-content: center;
+  }
+
+  .nav button {
+    flex: 1 1 45%;
+    font-size: 13px;
+  }
+}
