@@ -133,3 +133,22 @@ async function loadNepaliNews() {
       "⚠️ Failed to load news. Please check internet connection.";
   }
 }
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute("data-theme");
+
+  if (current === "dark") {
+    document.documentElement.setAttribute("data-theme", "light");
+    localStorage.setItem("theme", "light");
+  } else {
+    document.documentElement.setAttribute("data-theme", "dark");
+    localStorage.setItem("theme", "dark");
+  }
+}
+
+// load saved theme
+document.addEventListener("DOMContentLoaded", () => {
+  const saved = localStorage.getItem("theme") || "light";
+  document.documentElement.setAttribute("data-theme", saved);
+});
+
