@@ -1,4 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Computer Operator</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <script>
+    const saved = localStorage.getItem("theme") || "light";
+    document.documentElement.setAttribute("data-theme", saved);
+  </script>
+
+</head>
+
 <body>
+
   <header>
     <h3>Computer Operator (5th Level)</h3>
 
@@ -11,8 +29,6 @@
       <button onclick="loadPage('progress')">My Progress</button>
       <button onclick="logout()">Logout</button>
       <button onclick="toggleTheme()">🌙 / ☀️</button>
-    
-      
     </div>
   </header>
 
@@ -25,4 +41,6 @@
   <script src="js/videos.js"></script>
   <script src="js/premium.js"></script>
   <script src="js/progress.js"></script>
+
 </body>
+</html>
