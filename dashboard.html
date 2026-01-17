@@ -2,37 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard - Computer Operator</title>
-
+  <title>Dashboard - Computer Operator Pro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <link rel="stylesheet" href="css/style.css">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <script>
     const saved = localStorage.getItem("theme") || "light";
     document.documentElement.setAttribute("data-theme", saved);
   </script>
-
 </head>
 
 <body>
+  <!-- Parallax Background -->
+  <div class="parallax-bg">
+    <div class="parallax-circle" style="width: 300px; height: 300px; top: 10%; left: 5%;"></div>
+    <div class="parallax-circle" style="width: 200px; height: 200px; top: 60%; right: 10%;"></div>
+    <div class="parallax-circle" style="width: 150px; height: 150px; bottom: 20%; left: 20%;"></div>
+  </div>
 
   <header>
-    <h3>Computer Operator (5th Level)</h3>
-
+    <h3><i class="fas fa-laptop-code"></i> Computer Operator Pro</h3>
+    
+    <button class="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
     <div class="nav">
-      <button onclick="loadPage('home')">Home</button>
-      <button onclick="loadPage('mcq')">Practice</button>
-      <button onclick="loadPage('syllabus')">Syllabus</button>
-      <button onclick="loadPage('videos')">Videos</button>
-      <button onclick="loadPage('premium')">Premium 🔒</button>
-      <button onclick="loadPage('progress')">My Progress</button>
-      <button onclick="logout()">Logout</button>
-      <button onclick="toggleTheme()">🌙 / ☀️</button>
+      <button onclick="loadPage('home')"><i class="fas fa-home"></i> Home</button>
+      <button onclick="loadPage('mcq')"><i class="fas fa-question-circle"></i> Practice</button>
+      <button onclick="loadPage('syllabus')"><i class="fas fa-book"></i> Syllabus</button>
+      <button onclick="loadPage('videos')"><i class="fas fa-video"></i> Videos</button>
+      <button onclick="loadPage('premium')"><i class="fas fa-crown"></i> Premium 🔒</button>
+      <button onclick="loadPage('progress')"><i class="fas fa-chart-line"></i> Progress</button>
+      <button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      <button onclick="toggleTheme()" id="themeToggle">
+        <i class="fas fa-moon"></i> Theme
+      </button>
     </div>
   </header>
 
-  <main id="app"></main>
+  <main id="app">
+    <!-- Content loads here -->
+  </main>
 
   <script src="js/app.js"></script>
   <script src="js/home.js"></script>
@@ -41,6 +55,63 @@
   <script src="js/videos.js"></script>
   <script src="js/premium.js"></script>
   <script src="js/progress.js"></script>
-
+  
+  <!-- Animation & Interactions -->
+  <script>
+    // Mobile menu toggle
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+      this.classList.toggle('active');
+      document.querySelector('.nav').classList.toggle('active');
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const nav = document.querySelector('.nav');
+      const menuToggle = document.querySelector('.menu-toggle');
+      
+      if (window.innerWidth <= 768 && nav.classList.contains('active')) {
+        if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
+          nav.classList.remove('active');
+          menuToggle.classList.remove('active');
+        }
+      }
+    });
+    
+    // Parallax effect
+    window.addEventListener('scroll', function() {
+      const scrolled = window.pageYOffset;
+      const circles = document.querySelectorAll('.parallax-circle');
+      
+      circles.forEach((circle, index) => {
+        const speed = [0.05, 0.1, 0.15][index] || 0.1;
+        circle.style.transform = `translateY(${scrolled * speed}px)`;
+      });
+    });
+    
+    // Update theme button icon
+    function updateThemeIcon() {
+      const theme = document.documentElement.getAttribute('data-theme');
+      const icon = document.querySelector('#themeToggle i');
+      const text = document.querySelector('#themeToggle');
+      
+      if (theme === 'dark') {
+        icon.className = 'fas fa-sun';
+        text.innerHTML = '<i class="fas fa-sun"></i> Light';
+      } else {
+        icon.className = 'fas fa-moon';
+        text.innerHTML = '<i class="fas fa-moon"></i> Dark';
+      }
+    }
+    
+    // Call on load
+    updateThemeIcon();
+    
+    // Enhance toggleTheme function
+    const originalToggleTheme = toggleTheme;
+    toggleTheme = function() {
+      originalToggleTheme();
+      updateThemeIcon();
+    };
+  </script>
 </body>
 </html>
