@@ -1,4 +1,4 @@
-// Enhanced app.js with mobile support and animations
+// Enhanced app.js with all modern features
 let currentPage = 'home';
 
 function loadPage(page) {
@@ -9,12 +9,35 @@ function loadPage(page) {
 
   const pageFunction = window[page + "Page"];
   
-  // Add loading animation
+  // Create loading animation
   app.innerHTML = `
-    <div style="display: flex; justify-content: center; align-items: center; min-height: 300px;">
+    <div style="
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      min-height: 500px;
+      animation: fadeIn 0.3s ease;
+    ">
       <div style="text-align: center;">
-        <div class="loading" style="width: 50px; height: 50px; border: 4px solid var(--glass-border); border-top-color: var(--primary); border-radius: 50%; margin: 0 auto 20px; animation: spin 1s linear infinite;"></div>
-        <p style="opacity: 0.7;">Loading ${page} content...</p>
+        <div class="loading-spinner" style="margin: 0 auto 20px;"></div>
+        <h3 style="margin-bottom: 10px; color: var(--dark);">Loading ${page.charAt(0).toUpperCase() + page.slice(1)}</h3>
+        <p style="color: var(--gray); opacity: 0.7;">Preparing your content...</p>
+        <div style="
+          width: 200px;
+          height: 4px;
+          background: var(--glass-bg);
+          border-radius: 2px;
+          margin: 20px auto;
+          overflow: hidden;
+        ">
+          <div style="
+            width: 60%;
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: loadingBar 1.5s infinite;
+          "></div>
+        </div>
       </div>
     </div>
   `;
@@ -29,282 +52,342 @@ function loadPage(page) {
     }
   }
 
+  // Load page content with delay for better UX
   setTimeout(() => {
     if (typeof pageFunction === "function") {
-      app.innerHTML = pageFunction();
-      
-      // Smooth scroll to top
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-
-      // Initialize page-specific functions
-      if (page === "home") {
-        startNepaliClock();
-        loadNepaliNews();
-      }
-      
-      // Add entrance animation to cards
-      setTimeout(() => {
-        const cards = app.querySelectorAll('.card');
-        cards.forEach((card, index) => {
-          card.style.animationDelay = `${index * 0.1}s`;
-          card.classList.add('card-animate');
+      try {
+        app.innerHTML = pageFunction();
+        
+        // Smooth scroll to top
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
         });
-      }, 100);
+
+        // Initialize page-specific functions
+        if (page === "home") {
+          // Use setTimeout to ensure DOM is ready
+          setTimeout(() => {
+            if (typeof startNepaliClock === 'function') {
+              startNepaliClock();
+            }
+            if (typeof loadNepaliNews === 'function') {
+              loadNepaliNews();
+            }
+          }, 100);
+        }
+        
+        // Add entrance animation to all cards
+        setTimeout(() => {
+          const cards = app.querySelectorAll('.card, .news-card, .leaderboard-item, .update-item, .recommendation');
+          cards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.05}s`;
+            card.classList.add('card-animate');
+          });
+        }, 200);
+
+        // Update page title
+        document.title = `${page.charAt(0).toUpperCase() + page.slice(1)} - Computer Operator Pro`;
+
+      } catch (error) {
+        console.error('Error loading page:', error);
+        app.innerHTML = `
+          <div class="card" style="text-align: center; padding: 50px 30px;">
+            <div style="
+              width: 80px;
+              height: 80px;
+              background: linear-gradient(135deg, var(--danger), var(--accent));
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 0 auto 25px;
+            ">
+              <i class="fas fa-exclamation-triangle" style="font-size: 2rem; color: white;"></i>
+            </div>
+            <h2 style="color: var(--danger); margin-bottom: 15px;">Loading Error</h2>
+            <p style="color: var(--gray); margin-bottom: 25px; line-height: 1.6;">
+              There was an error loading the ${page} page. Please try again.
+            </p>
+            <button class="btn" onclick="loadPage('home')" style="margin: 10px;">
+              <i class="fas fa-home"></i> Return to Home
+            </button>
+            <button class="btn btn-outline" onclick="location.reload()" style="margin: 10px;">
+              <i class="fas fa-redo"></i> Refresh Page
+            </button>
+          </div>
+        `;
+      }
 
     } else {
+      // Page not found
       app.innerHTML = `
-        <div class="card">
-          <h2 style="color: var(--danger);">⚠️ Page Not Found</h2>
-          <p>The page "<b>${page}</b>" is not available yet.</p>
+        <div class="card" style="text-align: center; padding: 50px 30px;">
+          <div style="
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--gray), var(--dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+          ">
+            <i class="fas fa-search" style="font-size: 2rem; color: white;"></i>
+          </div>
+          <h2 style="color: var(--dark); margin-bottom: 15px;">Page Not Found</h2>
+          <p style="color: var(--gray); margin-bottom: 25px; line-height: 1.6;">
+            The page "<b>${page}</b>" is not available yet.<br>
+            We're working on adding more features soon!
+          </p>
           <button class="btn" onclick="loadPage('home')" style="margin-top: 20px;">
-            <i class="fas fa-home"></i> Return to Home
+            <i class="fas fa-home"></i> Return to Dashboard
           </button>
         </div>
       `;
     }
-  }, 300);
+  }, 600); // Increased delay for better loading experience
 }
 
+// Initialize on page load
 document.addEventListener("DOMContentLoaded", () => {
-  loadPage("home");
-  
-  // Add CSS for loading animation
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+  // Add loading animations CSS
+  const loadingStyles = document.createElement('style');
+  loadingStyles.textContent = `
+    @keyframes loadingBar {
+      0% { transform: translateX(-100%); }
+      50% { transform: translateX(100%); }
+      100% { transform: translateX(100%); }
     }
+    
     .card-animate {
       animation: cardAppear 0.6s ease-out forwards;
     }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
   `;
-  document.head.appendChild(style);
+  document.head.appendChild(loadingStyles);
+  
+  // Load home page
+  loadPage("home");
+  
+  // Add service worker for PWA
+  if ('serviceWorker' in navigator && window.location.hostname !== 'localhost') {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(err => {
+        console.log('ServiceWorker registration failed:', err);
+      });
+    });
+  }
+  
+  // Network status detection
+  window.addEventListener('online', updateOnlineStatus);
+  window.addEventListener('offline', updateOnlineStatus);
+  
+  function updateOnlineStatus() {
+    const isOnline = navigator.onLine;
+    showNotification(
+      isOnline ? 'You are back online!' : 'You are offline. Some features may not work.',
+      isOnline ? 'success' : 'warning'
+    );
+    
+    // Update UI based on connectivity
+    document.body.classList.toggle('offline', !isOnline);
+  }
+  
+  // Initialize offline UI class
+  if (!navigator.onLine) {
+    document.body.classList.add('offline');
+    showNotification('You are offline. Some features may not work.', 'warning');
+  }
 });
 
-function logout() {
-  const modal = `
-    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 2000;">
-      <div class="card" style="max-width: 400px; text-align: center;">
-        <h3><i class="fas fa-sign-out-alt"></i> Confirm Logout</h3>
-        <p>Are you sure you want to logout?</p>
-        <div style="display: flex; gap: 10px; margin-top: 20px;">
-          <button class="btn" onclick="this.closest('div[style]').remove()" style="flex: 1; background: var(--gray);">
-            Cancel
-          </button>
-          <button class="btn" onclick="performLogout()" style="flex: 1; background: var(--danger);">
-            Logout
-          </button>
-        </div>
+// Enhanced notification system
+function showNotification(message, type = 'info', duration = 3000) {
+  // Remove existing notifications
+  const existingNotifications = document.querySelectorAll('.notification');
+  existingNotifications.forEach(notification => {
+    notification.style.animation = 'slideOutRight 0.3s ease forwards';
+    setTimeout(() => notification.remove(), 300);
+  });
+  
+  // Create notification
+  const notification = document.createElement('div');
+  notification.className = 'notification';
+  
+  const icons = {
+    success: 'fas fa-check-circle',
+    warning: 'fas fa-exclamation-triangle',
+    error: 'fas fa-times-circle',
+    info: 'fas fa-info-circle'
+  };
+  
+  const colors = {
+    success: 'var(--secondary)',
+    warning: 'var(--accent)',
+    error: 'var(--danger)',
+    info: 'var(--primary)'
+  };
+  
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: ${colors[type] || colors.info};
+    color: white;
+    padding: 18px 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-xl);
+    z-index: 9999;
+    animation: slideInRight 0.3s ease-out;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    min-width: 300px;
+    max-width: 400px;
+    transform-origin: top right;
+  `;
+  
+  notification.innerHTML = `
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <i class="${icons[type] || icons.info}" style="font-size: 1.3rem;"></i>
+      <div style="flex: 1;">
+        <div style="font-weight: 600; margin-bottom: 3px;">${type.charAt(0).toUpperCase() + type.slice(1)}</div>
+        <div style="font-size: 0.95rem; opacity: 0.9;">${message}</div>
       </div>
+      <button onclick="this.closest('.notification').remove()" style="
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+        padding: 5px;
+      ">
+        <i class="fas fa-times"></i>
+      </button>
     </div>
   `;
   
-  document.body.insertAdjacentHTML('beforeend', modal);
-}
-
-function performLogout() {
-  // Add logout animation
-  document.body.style.opacity = '0.7';
+  document.body.appendChild(notification);
   
+  // Auto remove after duration
   setTimeout(() => {
-    localStorage.removeItem('userSession');
-    alert("👋 Logged out successfully!");
-    window.location.href = "login.html";
-  }, 500);
-}
-
-function toggleTheme() {
-  const html = document.documentElement;
-  const current = html.getAttribute("data-theme");
-  const newTheme = current === "dark" ? "light" : "dark";
+    if (notification.parentNode) {
+      notification.style.animation = 'slideOutRight 0.3s ease forwards';
+      setTimeout(() => notification.remove(), 300);
+    }
+  }, duration);
   
-  // Add transition effect
-  html.style.transition = 'background-color 0.5s ease, color 0.5s ease';
-  
-  html.setAttribute("data-theme", newTheme);
-  localStorage.setItem("theme", newTheme);
-  
-  // Update button icon
-  const themeBtn = document.querySelector('#themeToggle');
-  if (themeBtn) {
-    themeBtn.innerHTML = newTheme === 'dark' 
-      ? '<i class="fas fa-sun"></i> Light'
-      : '<i class="fas fa-moon"></i> Dark';
-  }
-  
-  // Remove transition after animation
-  setTimeout(() => {
-    html.style.transition = '';
-  }, 500);
-}
-
-// Enhanced news loader
-async function loadNepaliNews() {
-  const container = document.getElementById("newsContainer");
-  if (!container) return;
-
-  container.innerHTML = `
-    <div style="display: flex; justify-content: center; padding: 20px;">
-      <div class="loading" style="width: 30px; height: 30px; border: 3px solid var(--glass-border); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite;"></div>
-    </div>
-  `;
-
-  try {
-    // Using a CORS proxy for demo purposes
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    const targetUrl = 'https://www.onlinekhabar.com/feed';
-    
-    const res = await fetch(proxyUrl + targetUrl);
-    const text = await res.text();
-    
-    // Parse RSS feed (simplified)
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(text, 'text/xml');
-    const items = xml.querySelectorAll('item');
-    
-    let html = '<div class="news-grid">';
-
-    Array.from(items).slice(0, 6).forEach((item, index) => {
-      const title = item.querySelector('title')?.textContent || 'No title';
-      const link = item.querySelector('link')?.textContent || '#';
-      const pubDate = item.querySelector('pubDate')?.textContent || '';
-      
-      // Format date
-      const date = pubDate ? new Date(pubDate).toLocaleDateString('en-NP') : 'Recent';
-      
-      html += `
-        <div class="news-card" style="animation-delay: ${index * 0.1}s">
-          <h4>${title.length > 100 ? title.substring(0, 100) + '...' : title}</h4>
-          <p><i class="far fa-clock"></i> ${date}</p>
-          <a href="${link}" target="_blank" style="display: inline-flex; align-items: center; gap: 5px;">
-            <i class="fas fa-external-link-alt"></i> Read More
-          </a>
-        </div>
-      `;
-    });
-
-    html += '</div>';
-
-    container.innerHTML = html;
-    
-  } catch (e) {
-    console.error('News loading error:', e);
-    container.innerHTML = `
-      <div class="card" style="text-align: center; padding: 30px;">
-        <i class="fas fa-wifi-slash" style="font-size: 2rem; color: var(--gray); margin-bottom: 15px;"></i>
-        <p>⚠️ Failed to load news. Showing sample news instead.</p>
-        
-        <div class="news-grid" style="margin-top: 20px;">
-          <div class="news-card">
-            <h4>Computer Operator Exam Date Announcement</h4>
-            <p>1 hour ago</p>
-            <a href="#" onclick="return false;">Read More</a>
-          </div>
-          <div class="news-card">
-            <h4>New Syllabus Update for 2080</h4>
-            <p>3 hours ago</p>
-            <a href="#" onclick="return false;">Read More</a>
-          </div>
-          <div class="news-card">
-            <h4>Preparation Tips from Toppers</h4>
-            <p>5 hours ago</p>
-            <a href="#" onclick="return false;">Read More</a>
-          </div>
-        </div>
-      </div>
+  // Add animations CSS if not exists
+  if (!document.querySelector('#notification-animations')) {
+    const style = document.createElement('style');
+    style.id = 'notification-animations';
+    style.textContent = `
+      @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      @keyframes slideOutRight {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+      }
     `;
+    document.head.appendChild(style);
   }
 }
 
-// Add keyboard shortcuts
+// Keyboard shortcuts
 document.addEventListener('keydown', (e) => {
+  // Only trigger when not in input fields
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  
   // Alt + H for Home
   if (e.altKey && e.key === 'h') {
     e.preventDefault();
     loadPage('home');
+    showNotification('Navigated to Home', 'info', 1500);
   }
+  
   // Alt + P for Practice
   if (e.altKey && e.key === 'p') {
     e.preventDefault();
     loadPage('mcq');
+    showNotification('Opening Practice Tests', 'info', 1500);
   }
+  
   // Alt + T for Theme toggle
   if (e.altKey && e.key === 't') {
     e.preventDefault();
     toggleTheme();
+    showNotification('Theme changed', 'info', 1500);
   }
+  
   // Escape to close mobile menu
-  if (e.key === 'Escape' && window.innerWidth <= 768) {
+  if (e.key === 'Escape') {
     const nav = document.querySelector('.nav');
     const menuToggle = document.querySelector('.menu-toggle');
     if (nav && nav.classList.contains('active')) {
       nav.classList.remove('active');
       if (menuToggle) menuToggle.classList.remove('active');
     }
-  }
-});
-
-// Add service worker for PWA capabilities
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(err => {
-      console.log('ServiceWorker registration failed: ', err);
+    
+    // Close any open modals
+    const modals = document.querySelectorAll('.logout-modal, .notification');
+    modals.forEach(modal => {
+      if (modal.classList.contains('logout-modal')) {
+        modal.style.animation = 'fadeOut 0.3s ease forwards';
+        setTimeout(() => modal.remove(), 300);
+      } else {
+        modal.remove();
+      }
     });
-  });
-}
-
-// Network status detection
-window.addEventListener('online', () => {
-  showNotification('You are back online!', 'success');
-});
-
-window.addEventListener('offline', () => {
-  showNotification('You are offline. Some features may not work.', 'warning');
-});
-
-function showNotification(message, type) {
-  const notification = document.createElement('div');
-  notification.style.cssText = `
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: ${type === 'success' ? 'var(--secondary)' : 'var(--danger)'};
-    color: white;
-    padding: 15px 25px;
-    border-radius: 10px;
-    box-shadow: var(--shadow-lg);
-    z-index: 3000;
-    animation: slideIn 0.3s ease-out;
-  `;
-  
-  notification.innerHTML = `
-    <div style="display: flex; align-items: center; gap: 10px;">
-      <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i>
-      <span>${message}</span>
-    </div>
-  `;
-  
-  document.body.appendChild(notification);
-  
-  setTimeout(() => {
-    notification.style.animation = 'slideOut 0.3s ease-out forwards';
-    setTimeout(() => notification.remove(), 300);
-  }, 3000);
-}
-
-// Add CSS for notifications
-const notificationStyles = document.createElement('style');
-notificationStyles.textContent = `
-  @keyframes slideIn {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
   }
-  @keyframes slideOut {
-    from { transform: translateX(0); opacity: 1; }
-    to { transform: translateX(100%); opacity: 0; }
+  
+  // Ctrl + S for Save Progress (simulated)
+  if (e.ctrlKey && e.key === 's') {
+    e.preventDefault();
+    showNotification('Progress saved successfully!', 'success', 2000);
+  }
+});
+
+// Enhanced performance monitoring
+let pageLoadTime = Date.now();
+window.addEventListener('load', () => {
+  const loadTime = Date.now() - pageLoadTime;
+  console.log(`Page loaded in ${loadTime}ms`);
+  
+  // Send to analytics if needed
+  if (loadTime > 2000) {
+    console.warn('Page load time is high, consider optimizing');
+  }
+});
+
+// Make functions globally available
+window.loadPage = loadPage;
+window.showNotification = showNotification;
+
+// Add offline CSS class
+const offlineStyle = document.createElement('style');
+offlineStyle.textContent = `
+  body.offline::after {
+    content: '⚠️ Offline';
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--danger);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    z-index: 9999;
+    animation: pulse 2s infinite;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 `;
-document.head.appendChild(notificationStyles);
+document.head.appendChild(offlineStyle);
