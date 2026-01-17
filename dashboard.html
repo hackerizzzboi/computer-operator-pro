@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard - Computer Operator Pro</title>
+  <title>Dashboard - Computer Operator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -11,15 +11,21 @@
     const saved = localStorage.getItem("theme") || "light";
     document.documentElement.setAttribute("data-theme", saved);
   </script>
+  
+  <!-- Particles.js Library -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 </head>
 
 <body>
-  <!-- Parallax Background -->
-  <div class="parallax-bg">
-    <div class="parallax-circle" style="width: 300px; height: 300px; top: 10%; left: 5%;"></div>
-    <div class="parallax-circle" style="width: 200px; height: 200px; top: 60%; right: 10%;"></div>
-    <div class="parallax-circle" style="width: 150px; height: 150px; bottom: 20%; left: 20%;"></div>
-  </div>
+  <!-- Animated Background -->
+  <div class="animated-bg"></div>
+  
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
+  
+  <!-- Custom Cursor -->
+  <div class="custom-cursor"></div>
+  <div class="custom-cursor-follower"></div>
 
   <header>
     <h3><i class="fas fa-laptop-code"></i> Computer Operator Pro</h3>
@@ -35,11 +41,11 @@
       <button onclick="loadPage('mcq')"><i class="fas fa-question-circle"></i> Practice</button>
       <button onclick="loadPage('syllabus')"><i class="fas fa-book"></i> Syllabus</button>
       <button onclick="loadPage('videos')"><i class="fas fa-video"></i> Videos</button>
-      <button onclick="loadPage('premium')"><i class="fas fa-crown"></i> Premium 🔒</button>
+      <button onclick="loadPage('premium')"><i class="fas fa-crown"></i> Premium</button>
       <button onclick="loadPage('progress')"><i class="fas fa-chart-line"></i> Progress</button>
       <button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
       <button onclick="toggleTheme()" id="themeToggle">
-        <i class="fas fa-moon"></i> Theme
+        <i class="fas fa-moon"></i> <span>Theme</span>
       </button>
     </div>
   </header>
@@ -48,6 +54,7 @@
     <!-- Content loads here -->
   </main>
 
+  <!-- JavaScript Files -->
   <script src="js/app.js"></script>
   <script src="js/home.js"></script>
   <script src="js/mcq.js"></script>
@@ -56,62 +63,247 @@
   <script src="js/premium.js"></script>
   <script src="js/progress.js"></script>
   
-  <!-- Animation & Interactions -->
+  <!-- Enhanced JavaScript -->
   <script>
-    // Mobile menu toggle
-    document.querySelector('.menu-toggle').addEventListener('click', function() {
-      this.classList.toggle('active');
-      document.querySelector('.nav').classList.toggle('active');
-    });
-    
-    // Close menu when clicking outside
-    document.addEventListener('click', function(event) {
-      const nav = document.querySelector('.nav');
-      const menuToggle = document.querySelector('.menu-toggle');
-      
-      if (window.innerWidth <= 768 && nav.classList.contains('active')) {
-        if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
-          nav.classList.remove('active');
-          menuToggle.classList.remove('active');
-        }
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize particles background
+      if (typeof particlesJS !== 'undefined') {
+        particlesJS('particles-js', {
+          particles: {
+            number: { value: 80, density: { enable: true, value_area: 800 } },
+            color: { value: "#6366f1" },
+            shape: { type: "circle" },
+            opacity: { value: 0.5, random: true },
+            size: { value: 3, random: true },
+            line_linked: {
+              enable: true,
+              distance: 150,
+              color: "#6366f1",
+              opacity: 0.2,
+              width: 1
+            },
+            move: {
+              enable: true,
+              speed: 2,
+              direction: "none",
+              random: true,
+              straight: false,
+              out_mode: "out",
+              bounce: false
+            }
+          },
+          interactivity: {
+            detect_on: "canvas",
+            events: {
+              onhover: { enable: true, mode: "repulse" },
+              onclick: { enable: true, mode: "push" }
+            }
+          }
+        });
       }
-    });
-    
-    // Parallax effect
-    window.addEventListener('scroll', function() {
-      const scrolled = window.pageYOffset;
-      const circles = document.querySelectorAll('.parallax-circle');
       
-      circles.forEach((circle, index) => {
-        const speed = [0.05, 0.1, 0.15][index] || 0.1;
-        circle.style.transform = `translateY(${scrolled * speed}px)`;
+      // Mobile menu toggle
+      const menuToggle = document.querySelector('.menu-toggle');
+      const nav = document.querySelector('.nav');
+      
+      if (menuToggle) {
+        menuToggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          this.classList.toggle('active');
+          nav.classList.toggle('active');
+        });
+      }
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (window.innerWidth <= 768 && nav && nav.classList.contains('active')) {
+          if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
+            nav.classList.remove('active');
+            if (menuToggle) menuToggle.classList.remove('active');
+          }
+        }
       });
+      
+      // Custom cursor
+      const cursor = document.querySelector('.custom-cursor');
+      const cursorFollower = document.querySelector('.custom-cursor-follower');
+      
+      if (cursor && cursorFollower) {
+        document.addEventListener('mousemove', function(e) {
+          cursor.style.left = e.clientX + 'px';
+          cursor.style.top = e.clientY + 'px';
+          
+          setTimeout(() => {
+            cursorFollower.style.left = e.clientX + 'px';
+            cursorFollower.style.top = e.clientY + 'px';
+          }, 100);
+        });
+        
+        // Cursor effects on interactive elements
+        const interactiveElements = document.querySelectorAll('button, a, input, .card, .feature');
+        interactiveElements.forEach(el => {
+          el.addEventListener('mouseenter', () => {
+            cursor.style.transform = 'scale(1.5)';
+            cursorFollower.style.transform = 'scale(1.2)';
+          });
+          
+          el.addEventListener('mouseleave', () => {
+            cursor.style.transform = 'scale(1)';
+            cursorFollower.style.transform = 'scale(1)';
+          });
+        });
+      }
+      
+      // Update theme button icon on load
+      updateThemeIcon();
     });
     
-    // Update theme button icon
+    // Enhanced toggleTheme function
+    const originalToggleTheme = toggleTheme;
+    window.toggleTheme = function() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      // Add transition class
+      html.classList.add('theme-transition');
+      
+      // Switch theme
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      
+      // Update particles color based on theme
+      if (typeof particlesJS !== 'undefined') {
+        particlesJS('particles-js', {
+          particles: {
+            color: { value: newTheme === 'dark' ? "#818cf8" : "#6366f1" },
+            line_linked: { color: newTheme === 'dark' ? "#818cf8" : "#6366f1" }
+          }
+        });
+      }
+      
+      // Update button
+      updateThemeIcon();
+      
+      // Remove transition class
+      setTimeout(() => {
+        html.classList.remove('theme-transition');
+      }, 500);
+    };
+    
     function updateThemeIcon() {
       const theme = document.documentElement.getAttribute('data-theme');
-      const icon = document.querySelector('#themeToggle i');
-      const text = document.querySelector('#themeToggle');
+      const themeToggle = document.getElementById('themeToggle');
       
-      if (theme === 'dark') {
-        icon.className = 'fas fa-sun';
-        text.innerHTML = '<i class="fas fa-sun"></i> Light';
-      } else {
-        icon.className = 'fas fa-moon';
-        text.innerHTML = '<i class="fas fa-moon"></i> Dark';
+      if (themeToggle) {
+        if (theme === 'dark') {
+          themeToggle.innerHTML = '<i class="fas fa-sun"></i> <span>Light</span>';
+        } else {
+          themeToggle.innerHTML = '<i class="fas fa-moon"></i> <span>Dark</span>';
+        }
       }
     }
     
-    // Call on load
-    updateThemeIcon();
-    
-    // Enhance toggleTheme function
-    const originalToggleTheme = toggleTheme;
-    toggleTheme = function() {
-      originalToggleTheme();
-      updateThemeIcon();
+    // Enhanced logout with animation
+    const originalLogout = logout;
+    window.logout = function() {
+      // Create logout modal
+      const modalHTML = `
+        <div class="logout-modal" style="
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.7);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 2000;
+          backdrop-filter: blur(10px);
+          animation: fadeIn 0.3s ease;
+        ">
+          <div class="glass-effect" style="
+            max-width: 400px;
+            width: 90%;
+            padding: 40px;
+            text-align: center;
+            animation: slideUp 0.4s ease;
+          ">
+            <div class="logout-icon" style="
+              width: 80px;
+              height: 80px;
+              background: linear-gradient(135deg, #ef4444, #f59e0b);
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 0 auto 25px;
+              animation: pulse 2s infinite;
+            ">
+              <i class="fas fa-sign-out-alt" style="font-size: 2rem; color: white;"></i>
+            </div>
+            <h3 style="margin-bottom: 15px; color: var(--dark);">Confirm Logout</h3>
+            <p style="color: var(--gray); margin-bottom: 30px; line-height: 1.6;">
+              Are you sure you want to logout?<br>
+              Your progress will be saved automatically.
+            </p>
+            <div style="display: flex; gap: 15px;">
+              <button onclick="this.closest('.logout-modal').remove()" class="btn" style="flex: 1; background: var(--gray);">
+                <i class="fas fa-times"></i> Cancel
+              </button>
+              <button onclick="performEnhancedLogout()" class="btn" style="flex: 1; background: linear-gradient(135deg, #ef4444, #f59e0b);">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
     };
+    
+    window.performEnhancedLogout = function() {
+      // Add logout animation
+      document.body.style.animation = 'fadeOut 0.5s ease forwards';
+      
+      // Save session data
+      localStorage.setItem('lastLogout', new Date().toISOString());
+      
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 500);
+      
+      // Add CSS for animations
+      if (!document.querySelector('#logout-animations')) {
+        const style = document.createElement('style');
+        style.id = 'logout-animations';
+        style.textContent = `
+          @keyframes fadeOut {
+            to { opacity: 0; transform: scale(0.95); }
+          }
+          @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
+          @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    };
+    
+    // Add CSS for theme transition
+    const themeTransitionStyle = document.createElement('style');
+    themeTransitionStyle.textContent = `
+      .theme-transition * {
+        transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease !important;
+      }
+    `;
+    document.head.appendChild(themeTransitionStyle);
   </script>
 </body>
 </html>
