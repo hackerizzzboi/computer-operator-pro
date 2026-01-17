@@ -1,46 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Dashboard - Computer Operator</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link rel="stylesheet" href="css/style.css">
-
-  <script>
-    const saved = localStorage.getItem("theme") || "light";
-    document.documentElement.setAttribute("data-theme", saved);
-  </script>
-
+<title>Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
 
-  <header>
-    <h3>Computer Operator (5th Level)</h3>
+<div class="navbar">
+  <h2>Computer Operator Dashboard</h2>
+  <button class="toggle-btn" onclick="toggleTheme()">🌙 Theme</button>
+</div>
 
-    <div class="nav">
-      <button onclick="loadPage('home')">Home</button>
-      <button onclick="loadPage('mcq')">Practice</button>
-      <button onclick="loadPage('syllabus')">Syllabus</button>
-      <button onclick="loadPage('videos')">Videos</button>
-      <button onclick="loadPage('premium')">Premium 🔒</button>
-      <button onclick="loadPage('progress')">My Progress</button>
-      <button onclick="logout()">Logout</button>
-      <button onclick="toggleTheme()">🌙 / ☀️</button>
+<div class="dashboard">
+
+  <div class="sidebar">
+    <h3>Menu</h3>
+
+    <a href="#">🏠 Home</a>
+    <a href="#">📘 Study Materials</a>
+    <a href="#">📝 MCQ Practice</a>
+    <a href="#">🎥 Video Classes</a>
+    <a href="#">📢 Notices</a>
+    <a href="#">⚙ Settings</a>
+    <a href="index.html">🚪 Logout</a>
+  </div>
+
+  <div class="content">
+
+    <h2>Welcome Back!</h2>
+    <p>Prepare smart for Computer Operator Exam</p>
+
+    <div class="card-grid">
+
+      <div class="card">
+        <h3>📘 Notes</h3>
+        <p>All syllabus covered</p>
+      </div>
+
+      <div class="card">
+        <h3>📝 MCQ</h3>
+        <p>Practice questions</p>
+      </div>
+
+      <div class="card">
+        <h3>🎥 Videos</h3>
+        <p>Smart learning</p>
+      </div>
+
+      <div class="card">
+        <h3>📢 Updates</h3>
+        <p>Latest notices</p>
+      </div>
+
     </div>
-  </header>
 
-  <main id="app"></main>
+  </div>
 
-  <script src="js/app.js"></script>
-  <script src="js/home.js"></script>
-  <script src="js/mcq.js"></script>
-  <script src="js/syllabus.js"></script>
-  <script src="js/videos.js"></script>
-  <script src="js/premium.js"></script>
-  <script src="js/progress.js"></script>
+</div>
+
+<script src="js/theme.js"></script>
 
 </body>
 </html>
