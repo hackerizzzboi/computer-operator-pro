@@ -208,3 +208,120 @@ input:focus {
     font-size: 30px;
   }
 }
+
+/* =========================
+   RESPONSIVE FIXES – ALL DEVICES
+========================= */
+
+/* LARGE DESKTOP (≥1440px) */
+@media (min-width: 1440px) {
+  .landing-card {
+    max-width: 1100px;
+  }
+
+  .landing-card h1 {
+    font-size: 48px;
+  }
+
+  .feature {
+    font-size: 18px;
+  }
+}
+
+/* LAPTOP (1024px – 1439px) */
+@media (max-width: 1439px) {
+  .landing-card {
+    max-width: 900px;
+  }
+
+  .landing-card h1 {
+    font-size: 40px;
+  }
+}
+
+/* TABLET (768px – 1023px) */
+@media (max-width: 1023px) {
+  body {
+    padding: 0;
+  }
+
+  .landing {
+    padding: 30px 20px;
+  }
+
+  .landing-card {
+    padding: 36px;
+  }
+
+  .landing-card h1 {
+    font-size: 34px;
+  }
+
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .auth-card {
+    max-width: 440px;
+    padding: 32px;
+  }
+}
+
+/* MOBILE (≤767px) */
+@media (max-width: 767px) {
+  body {
+    align-items: flex-start;
+  }
+
+  .landing {
+    padding: 20px 14px;
+  }
+
+  .landing-card {
+    padding: 26px;
+    border-radius: 20px;
+  }
+
+  .landing-card h1 {
+    font-size: 26px;
+  }
+
+  .landing-card p {
+    font-size: 15px;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 14px;
+  }
+
+  .auth-wrapper {
+    padding: 20px 14px;
+  }
+
+  .auth-card {
+    padding: 26px;
+    border-radius: 20px;
+  }
+
+  input {
+    font-size: 14px;
+    padding: 13px;
+  }
+}
+
+/* SMALL MOBILE (≤360px) */
+@media (max-width: 360px) {
+  .landing-card h1 {
+    font-size: 22px;
+  }
+
+  .auth-card h2 {
+    font-size: 20px;
+  }
+}
