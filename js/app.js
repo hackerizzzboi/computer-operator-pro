@@ -1,19 +1,11 @@
-// app.js – Core SPA controller 🚀
-
-// Load a page into <main id="app">
 function loadPage(page) {
   const app = document.getElementById("app");
 
-  if (!app) {
-    console.error("❌ #app container not found");
-    return;
-  }
+  if (!app) return;
 
   const pageFunction = window[page + "Page"];
 
-  app.innerHTML = `
-    <p style="opacity:0.6;">⏳ Loading ${page}...</p>
-  `;
+  app.innerHTML = `<p style="opacity:0.6;">⏳ Loading ${page}...</p>`;
 
   setTimeout(() => {
     if (typeof pageFunction === "function") {
@@ -34,22 +26,17 @@ function loadPage(page) {
   }, 150);
 }
 
-// Auto-load HOME
 document.addEventListener("DOMContentLoaded", () => {
   loadPage("home");
 });
 
-// Logout handler
 function logout() {
-  const confirmLogout = confirm("Are you sure you want to logout?");
-
-  if (!confirmLogout) return;
-
-  alert("👋 Logged out successfully");
-  window.location.href = "login.html";
+  if (confirm("Are you sure you want to logout?")) {
+    alert("👋 Logged out successfully");
+    window.location.href = "login.html";
+  }
 }
 
-// Theme Toggle
 function toggleTheme() {
   const current = document.documentElement.getAttribute("data-theme");
 
@@ -62,19 +49,8 @@ function toggleTheme() {
   }
 }
 
-// Load saved theme
-document.addEventListener("DOMContentLoaded", () => {
-  const saved = localStorage.getItem("theme") || "light";
-  document.documentElement.setAttribute("data-theme", saved);
-});
-
-// ============================
-// NEPALI DATE TIME FUNCTION
-// ============================
-
 function startNepaliClock() {
   const clock = document.getElementById("nepaliClock");
-
   if (!clock) return;
 
   setInterval(() => {
@@ -95,13 +71,8 @@ function startNepaliClock() {
   }, 1000);
 }
 
-// ============================
-// NEWS LOADER (Nepal News)
-// ============================
-
 async function loadNepaliNews() {
   const container = document.getElementById("newsContainer");
-
   if (!container) return;
 
   container.innerHTML = "⏳ Loading latest news...";
@@ -133,22 +104,3 @@ async function loadNepaliNews() {
       "⚠️ Failed to load news. Please check internet connection.";
   }
 }
-
-function toggleTheme() {
-  const current = document.documentElement.getAttribute("data-theme");
-
-  if (current === "dark") {
-    document.documentElement.setAttribute("data-theme", "light");
-    localStorage.setItem("theme", "light");
-  } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    localStorage.setItem("theme", "dark");
-  }
-}
-
-// load saved theme
-document.addEventListener("DOMContentLoaded", () => {
-  const saved = localStorage.getItem("theme") || "light";
-  document.documentElement.setAttribute("data-theme", saved);
-});
-
